@@ -9,8 +9,8 @@ class TodoItems extends Component {
   render(props) {
     const todoEntries = this.props.entries
     const listItems = todoEntries.map((item) => {
-      return <li className = "task" key={item.key} >{item.text}
-      <span onClick={() => this.props.deleteItem(item.key)}>X</span>
+      return <li className = "task" key={item.key} onClick={() => this.props.deleteItem(item.key)}>{item.text}
+      <span >X</span>
       <style jsx>{`
       .task {
         width: 100%;
