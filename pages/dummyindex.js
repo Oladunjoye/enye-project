@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Layout from './components/MyLayout.js'
-import Link from 'next/link'
+
 import TodoList from './Todolist';
 import TodoItems from './TodoItems';
 
@@ -58,21 +57,4 @@ class App extends Component {
     )
   }
 }
-// export default App
-export default () => (
-    <div>
-    <App/>
-    <style jsx>{
-        `
-         
-body {
-	font-family: 'Montserrat', sans-serif;
-	background: #ecf0f1;
-}
-
-        
-        
-        `
-    }</style>
-    </div>
-)
+export default App
