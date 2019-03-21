@@ -6,7 +6,8 @@ class TodoItems extends Component {
   // createTasks(item) {
   //   return <li key={item.key} onClick={() => this.props.deleteItem(item.key)}>{item.text}</li>
   // }
-  render(props) {
+  
+  render() {
     const todoEntries = this.props.entries
     const listItems = todoEntries.map((item) => {
       return <li className = "task" key={item.key} onClick={() => this.props.deleteItem(item.key)}>{item.text}
@@ -66,5 +67,8 @@ class TodoItems extends Component {
     </ul>
   }
 }
+
+
+
 
 export default TodoItems

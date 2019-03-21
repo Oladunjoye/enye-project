@@ -4,6 +4,7 @@ import Layout from './components/MyLayout.js'
 import Link from 'next/link'
 import TodoList from './Todolist';
 import TodoItems from './TodoItems';
+import fetch from 'isomorphic-unfetch'
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
           currentItem: {text:'', key:''},
         }
       }
+      
       handleInput = e => {
         const itemText = e.target.value
         const currentItem = { text: itemText, key: Date.now() }
@@ -44,7 +46,7 @@ class App extends Component {
       }
   render() {
     return (
-      <div className="App">
+      <div >
       <link href="app.css" rel="stylesheet" />
         <TodoList className = 'App'
         addItem={this.addItem}
@@ -53,26 +55,79 @@ class App extends Component {
           currentItem={this.state.currentItem}
         
         />
-        <TodoItems entries = {this.state.items} deleteItem={this.deleteItem} />
+        <TodoItems entries = {this.state.items} deleteItem={this.deleteItem}/>
       </div>
     )
   }
 }
-// export default App
-export default () => (
-    <div>
-    <App/>
-    <style jsx>{
-        `
-         
-body {
-	font-family: 'Montserrat', sans-serif;
-	background: #ecf0f1;
-}
 
+export default class Index extends Component{
+ 
+  static async getInitialProps(){
+    try{ const response = await fetch('http://localhost:3000/todos')
+     const items =  await response.json()
+    
+    
+    return {items: items}
+  }
+  catch (error){
+    return response.status(400).send(error);
+  }
+  }
+ render(){
+
+ 
+  return(
+  <div className="App">
+  <App/>
+  
+
+  <ul className="list">
+    {this.props.items.map((item) => <li className = "task" key={item.key} >{item.text} </li>
+    )}
+    <style jsx>{`
+        .list {
+          width: 800px;
+          margin: 0 auto;
+        }
+          
+        .task {
+          width: 100%;
+          height: 60px;
+          line-height: 60px;
+          font-size: 20px;
+          padding: 0 20px;
+          color: #34495e;
+          transition: all .3s ease;
+        }
+        .task:hover {
+          background: rgba(0, 0, 0, .02);
+          cursor: pointer;
+        }
         
+        .task:hover span{
+          opacity: 1;
+        }
+        li span {
+          float: right;
+          color: #c0392b;
+          transition: all 0.3s;
+          opacity: 0;
+        }
         
-        `
-    }</style>
+        li span:hover {
+          color: #e74c3c
+        }
+        
+      `}</style>
+      <style global jsx>{`
+      display:flex,
+      justify-content:center
+      `}</style>
+      
+  </ul>
     </div>
-)
+  
+  )
+ }
+}
