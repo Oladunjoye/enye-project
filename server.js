@@ -12,10 +12,10 @@ app
 
 
     server.get('/todos', (req, res) => {
-      // return app.render(req, res, '/index', req.query)
+     
       return res.send(
-        [{text:'Eat good ', key: Date.now()},
-        {text:'Sleep well ', key: Date.now(),},
+        [{text:'Eat good ', key: 1},
+        {text:'Sleep well ', key: 2},
         {text:'Complete chores ', key: Date.now()}
         ])
      

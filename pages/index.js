@@ -15,7 +15,7 @@ class App extends Component {
           currentItem: {text:'', key:''},
         }
       }
-      
+      // handle form input and changes
       handleInput = e => {
         const itemText = e.target.value
         const currentItem = { text: itemText, key: Date.now() }
@@ -23,6 +23,8 @@ class App extends Component {
           currentItem,
         })
       }
+
+      // adds input from form to display section
       addItem = e => {
         e.preventDefault()
         const newItem = this.state.currentItem
@@ -36,6 +38,7 @@ class App extends Component {
         }
       }
 
+      // removes selcted element
       deleteItem = key => {
         const filteredItems = this.state.items.filter(item => {
           return item.key !== key
@@ -68,22 +71,28 @@ export default class Index extends Component{
      const items =  await response.json()
     
     
-    return {items: items}
+    return {items: items,
+             }
   }
   catch (error){
     return response.status(400).send(error);
   }
+  
   }
+  
+   
+  
+  
  render(){
-
- 
+   console.log(this.props)
+  
   return(
   <div className="App">
   <App/>
   
 
-  <ul className="list">
-    {this.props.items.map((item) => <li className = "task" key={item.key} >{item.text} </li>
+  <ul className="list" >
+    {this.props.items.map((item) => <li className = 'task' key={item.key} >{item.text} <span >X</span></li>
     )}
     <style jsx>{`
         .list {
@@ -108,6 +117,9 @@ export default class Index extends Component{
         .task:hover span{
           opacity: 1;
         }
+        .task.remove{
+          dispay:none
+        } 
         li span {
           float: right;
           color: #c0392b;

@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 
 class TodoItems extends Component {
-  // createTasks(item) {
-  //   return <li key={item.key} onClick={() => this.props.deleteItem(item.key)}>{item.text}</li>
-  // }
+  
   
   render() {
     const todoEntries = this.props.entries
-    const listItems = todoEntries.map((item) => {
+    const sortedTodoEntries = todoEntries.sort((a,b) => b.key - a.key)
+    console.log(sortedTodoEntries)
+    const listItems = sortedTodoEntries.map((item) => {
       return <li className = "task" key={item.key} onClick={() => this.props.deleteItem(item.key)}>{item.text}
       <span >X</span>
       <style jsx>{`
